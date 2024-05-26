@@ -88,6 +88,8 @@ func (r *rewriteBody) ServeHTTP(rw http.ResponseWriter, req *http.Request) {
 	for _, rwt := range r.rewrites {
 		bodyBytes = rwt.regex.ReplaceAll(bodyBytes, rwt.replacement)
 	}
+	fmt.Println("执行自定义插件")
+	fmt.Println(req.URL.RawPath)
 
 	if _, err := rw.Write(bodyBytes); err != nil {
 		log.Printf("unable to write rewrited body: %v", err)
